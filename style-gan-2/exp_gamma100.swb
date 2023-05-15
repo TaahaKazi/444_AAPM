@@ -1,0 +1,12 @@
+#!/bin/bash
+#SBATCH --job-name="stylegan2-exp2"
+#SBATCH --output="stylegan2-exp2.%j.%N.out"
+#SBATCH --error="stylegan2-exp2.%j.%N.err"
+#SBATCH --partition=gpux1
+#SBATCH --time=16
+module load opence/1.2.2
+module load cuda/11.0.221
+pip install ninja
+#pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
+cd /home/nkamath/AAPM_DGM_Challenge/stylegan2-ada-pytorch
+python train.py --outdir=/home/nkamath/AAPM_DGM_Challenge/training-runs --data=/home/nkamath/AAPM_DGM_Challenge/challenge_data_256_stylegan2-ada.zip --aug=noaug --cfg paper256 --gamma=100 --gpus=1 --batch=48

@@ -1,0 +1,11 @@
+#!/bin/bash
+#SBATCH --job-name="generate-stylegan2"
+#SBATCH --output="stylegan2-generate.%j.%N.out"
+#SBATCH --error="stylegan2-generate.%j.%N.err"
+#SBATCH --partition=gpux1
+#SBATCH --time=4
+module load opence/1.2.2
+module load cuda/11.0.221
+#pip install ninja
+cd /home/nkamath/AAPM_DGM_Challenge/stylegan2-ada-pytorch
+python generate.py --outdir=out_00021_snapshot9072 --seeds=0-35 --network=/home/nkamath/AAPM_DGM_Challenge/training-runs/00021-challenge_data_256_stylegan2-ada-paper256-gamma2-batch64-noaug/network-snapshot-009072.pkl

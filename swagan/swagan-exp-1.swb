@@ -1,0 +1,12 @@
+#!/bin/bash
+#SBATCH --job-name="swagan2-gpux4"
+#SBATCH --output="swagan-gpux4.%j.%N.out"
+#SBATCH --error="swagan-gpux4.%j.%N.err"
+#SBATCH --partition=gpux4
+#SBATCH --time=24
+module load opence/1.1.2
+module load cuda/11.0.221
+pip install ninja
+cd /home/nkamath/stylegan2-pytorch
+python -m torch.distributed.launch --nproc_per_node=4 train.py --batch 4 --arch swagan /home/nkamath/stylegan2-pytorch/res
+

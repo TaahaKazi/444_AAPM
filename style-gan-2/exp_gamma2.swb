@@ -1,0 +1,11 @@
+#!/bin/bash
+#SBATCH --job-name="stylegan2-gpu4-gamma2"
+#SBATCH --output="stylegan2-gpu4-gamma2.%j.%N.out"
+#SBATCH --error="stylegan2-gpu4-gamma2.%j.%N.err"
+#SBATCH --partition=gpux4
+#SBATCH --time=24
+module load opence/1.2.2
+module load cuda/11.0.221
+pip install ninja
+cd /home/nkamath/AAPM_DGM_Challenge/stylegan2-ada-pytorch
+python train.py --outdir=/home/nkamath/AAPM_DGM_Challenge/training-runs --data=/home/nkamath/AAPM_DGM_Challenge/original_challenge_data.zip --aug=noaug --cfg paper512 --gamma=2 --gpus=4 --batch=64

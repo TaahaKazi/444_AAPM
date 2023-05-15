@@ -1,0 +1,14 @@
+#!/bin/bash
+#SBATCH --job-name="stylegan3"
+#SBATCH --output="stylegan3.%j.%N.out"
+#SBATCH --error="stylegan3.%j.%N.err"
+#SBATCH --partition=gpux4
+#SBATCH --time=21
+
+
+module load opence/1.6.1
+module load cuda/11.2.152
+pip install Ninja
+pip install setuptools==59.5.0
+
+python stylegan3/train.py --outdir=train_256x256 --data=download_256x256.zip --cfg=stylegan3-r --gpus=4 --batch=32 --snap=25 --gamma=100 --aug=noaug --workers=8 --kimg=3000 --resume=/home/ruisent2/cs444_project/train_256x256/00011-stylegan3-r-download_256x256-gpus4-batch32-gamma100/network-snapshot-001600.pkl
